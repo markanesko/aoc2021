@@ -17,47 +17,52 @@ def read_input():
 
     return lanternfish
 
+def init_population_dict(lanternfish):
+    population = {
+        0: 0,
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 0,
+        5: 0,
+        6: 0,
+        7: 0,
+        8: 0,
+    }
+    
+    for fish in lanternfish:
+        population[fish] = population[fish] + 1
+            
+
+    return population
+
 def run():
 
     lanternfish = read_input()
-    np_lanternfish = np.array(lanternfish)
     n_days = 256
 
-    # for day in range(n_days):
-        
-        # num_new_fishes = 0
-        # for index, ttr in enumerate(lanternfish):
-        #     if ttr == 0:
-        #         lanternfish[index] = 6
-        #         num_new_fishes += 1
-        #         continue
-        #     lanternfish[index] = lanternfish[index] - 1
-        
-        # for i in range(num_new_fishes):
-        #     lanternfish.append(8)
-
-    # print(len(lanternfish))
+    population = init_population_dict(lanternfish)
 
     for day in range(n_days):
-        print(f'day => {day}')
 
-        reproduced_array = (np_lanternfish == 0)
-        no_reproduce_array = (np_lanternfish != 0)
+        temp_population = {
+            0: population[1],
+            1: population[2],
+            2: population[3],
+            3: population[4],
+            4: population[5],
+            5: population[6],
+            6: population[7] + population[0],
+            7: population[8],
+            8: population[0],
+        }
+        population = temp_population
+    
+    print(f'population is {population}')
 
-        num_of_zeros = reproduced_array.sum()
+    population_size = sum(list(population.values()))
 
-        reproduced_array = reproduced_array * 6
-        no_reproduce_array = no_reproduce_array * (-1)
-
-        result_array = reproduced_array + no_reproduce_array
-        np_lanternfish += result_array
-
-        for i in range(num_of_zeros):
-            np_lanternfish = np.append(np_lanternfish, 8)
-
-
-    print(len(np_lanternfish))
-
+    print(f'population size is {population_size}')
 
     return 0
 
