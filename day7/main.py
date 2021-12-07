@@ -31,7 +31,7 @@ def run():
 
     align = dict.fromkeys(range(min_value, max_value + 1), 0)
 
-    counter = lambda x: sum(range(x+1))
+    counter = lambda x: int(x * (x + 1) / 2)
     vfunc = np.vectorize(counter)
 
     for position in range(min_value, max_value + 1):
