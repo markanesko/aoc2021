@@ -14,6 +14,14 @@ def read_input():
 
     return crabs
 
+def sum_num(n):
+    value = 0
+    for i in range(1, n + 1):
+        value += i
+    
+    return value
+
+
 def run():
 
     crabs = read_input()
