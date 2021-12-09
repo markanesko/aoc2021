@@ -12,6 +12,7 @@ four_len = 4
 seven_len = 3
 eight_len = 7
 
+
 def read_input():
     sequence = []
 
@@ -21,6 +22,7 @@ def read_input():
         sequence = [line.replace('\n', '').split(' | ') for line in data]
 
     return sequence
+
 
 def decode_signals(signals):
     signal_map = defaultdict(list)
@@ -44,18 +46,17 @@ def decode_signals(signals):
         if len(one.intersection(six)) == 1:
             break
 
-
     for el in signal_map[5]:
         three = set(list(el))
         if len(one.intersection(three)) == 2:
             break
-    
+
     for el in signal_map[5]:
-        checker = set(list(el))        
+        checker = set(list(el))
         if len(six.intersection(checker)) == 5:
             five = checker
             break
-    
+
     nine_sum = five.union(one)
 
     for el in signal_map[6]:
@@ -73,22 +74,23 @@ def decode_signals(signals):
         if checker != three and checker != five:
             two = checker
 
-    # print(f' 1 = {one}\t 2 = {two}\t 3 = {three}\t 4 = {four}\t 5 = {five}\t 6 = {six}\t 7 = {seven}\t 8 = {eight}\t 9 = {nine}\n') 
-    
+    # print(f' 1 = {one}\t 2 = {two}\t 3 = {three}\t 4 = {four}\t 5 = {five}\t 6 = {six}\t 7 = {seven}\t 8 = {eight}\t 9 = {nine}\n')
+
     decoded_numbers = {
-        0 : zero,
-        1 : one,
-        2 : two,
-        3 : three,
-        4 : four,
-        5 : five,
-        6 : six,
-        7 : seven,
-        8 : eight,
-        9 : nine,
+        0: zero,
+        1: one,
+        2: two,
+        3: three,
+        4: four,
+        5: five,
+        6: six,
+        7: seven,
+        8: eight,
+        9: nine,
     }
 
     return decoded_numbers
+
 
 def calcualte_number(numbers, outputs):
 
@@ -104,10 +106,11 @@ def calcualte_number(numbers, outputs):
 
     return final
 
+
 def run():
     sequence = read_input()
     np_sequence = np.array(sequence)
-    
+
     outputs = np_sequence[:, 1]
 
     counter = 0
@@ -117,7 +120,7 @@ def run():
                 counter += 1
 
     print(f'number of ocurances {counter}')
-    
+
     final = 0
 
     for pair in sequence:
