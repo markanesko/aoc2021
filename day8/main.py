@@ -37,16 +37,13 @@ def decode_signals(signals):
     two = None
     five = None
     nine = None
+    zero = None
 
     for el in signal_map[6]:
         six = set(list(el))
         if len(one.intersection(six)) == 1:
             break
 
-    for el in signal_map[6]:
-        nine = set(list(el))
-        if len(six.intersection(nine)) == 5:
-            break
 
     for el in signal_map[5]:
         three = set(list(el))
@@ -59,6 +56,18 @@ def decode_signals(signals):
             five = checker
             break
     
+    nine_sum = five.union(one)
+
+    for el in signal_map[6]:
+        nine = set(list(el))
+        if len(nine_sum.intersection(nine)) == 6:
+            break
+
+    for el in signal_map[6]:
+        zero = set(list(el))
+        if zero != six and zero != nine:
+            break
+
     for el in signal_map[5]:
         checker = set(list(el))
         if checker != three and checker != five:
@@ -67,6 +76,7 @@ def decode_signals(signals):
     # print(f' 1 = {one}\t 2 = {two}\t 3 = {three}\t 4 = {four}\t 5 = {five}\t 6 = {six}\t 7 = {seven}\t 8 = {eight}\t 9 = {nine}\n') 
     
     decoded_numbers = {
+        0 : zero,
         1 : one,
         2 : two,
         3 : three,
@@ -81,13 +91,16 @@ def decode_signals(signals):
     return decoded_numbers
 
 def calcualte_number(numbers, outputs):
-    outputs = [set(list(el)) for el in outputs.split(' ')]
-    
+
+    list_outputs = outputs.split(' ')
+
     final = 0
 
-    for k, v in numbers.items():
-        if v in outputs:
-            final += final * 10 + k
+    for el in list_outputs:
+        el_set = set(list(el))
+        for k, v in numbers.items():
+            if len(el_set) == len(v) and len(v.difference(el_set)) == 0:
+                final = final * 10 + k
 
     return final
 
